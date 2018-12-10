@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken'),
     expressjwt = require('express-jwt');
+    checkToken = expressjwt({ secret: "secret"})
 
 
 exports.signToken = (id) => {
@@ -8,4 +9,9 @@ exports.signToken = (id) => {
         "secret",
         { expiresIn: "24h" }
     )
+}
+
+
+exports.validateToken = (req, res, next) => {
+    checkToken(req, res, next);
 }

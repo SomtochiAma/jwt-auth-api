@@ -56,3 +56,9 @@ exports.authUser = (req, res, next) => {
         '_token': token,
     })
 }
+
+exports.mainRoute = (req, res, next) => {
+    res.status(200).json({
+        'success': 'Logged In '
+    })
+}
