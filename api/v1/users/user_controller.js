@@ -3,8 +3,12 @@ const auth = require('./auth/auth');
 
 exports.saveUser = (req, res, next) => {
     userModel.checkIfUserExists(req.body.email, function(err, result) {
+        if (err) {
+            console.log(err);
+            res.status(500).json
+        }
         if(result) {
-            res.status(500).json({
+            res.status(400).json({
                 message: "Email exists"
             })
         } else {
@@ -15,15 +19,15 @@ exports.saveUser = (req, res, next) => {
             userModel.saveUser(user, function(err, result) {
                 if (err) {
                     console.log(err);
-                }
-                console.log(result);
-                res.status(201).json( {
-                    data: result,
+                } else {
+                    console.log(result);
+                    res.status(201).json( {
+                        data: result,
                 });
+            }
             })
         }
     })
-    next();
 }
 
 exports.loginUser = (req, res, next) => {

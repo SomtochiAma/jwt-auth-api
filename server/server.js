@@ -11,7 +11,9 @@ app.use(morgan('dev'));
 
 app.use('/api/v1', api);
 
-
+app.use(function(err, req, res, next) {
+    res.status(500).json(err.message)
+})
 
 module.exports = app;
 
